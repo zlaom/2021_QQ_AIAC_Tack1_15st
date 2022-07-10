@@ -2,7 +2,6 @@
 .vscode/
 data
 data/
-result/
 checkpoints/
 result/result.json
 *.zip
