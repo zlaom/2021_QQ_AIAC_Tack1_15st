@@ -1,0 +1,77 @@
+MODEL:
+  NAME: SINGLE_TRS_PRETRAIN
+  FRAME_FEATURE_TRS:
+    NAME: FRAME_FEATURE_TRS
+    MAX_FRAME: 32
+    FRAME_DIM: 1536
+    POSE: False
+    DIM: 1536
+    DEPTH: 12
+    HEADS: 8
+    POOL: cls # [cls, mean]
+    POS_EMB: conv # [global, conv, all]
+    DIM_HEAD: 192
+    MLP_DIM: 3072
+    DROPOUT: 0.
+    EMB_DROPOUT: 0.1
+    LEARNING_RATE: 0.0001
+  FRAME_FEATURE_TRS_CLS:
+    NAME: FRAME_FEATURE_TRS_CLS
+    INPUT_SIZE: 1536
+    NUM_CLASSES: 10000 # [10000, 328]
+    LEARNING_RATE: 0.0001
+
+DATASET:
+  DESC_PATH: data/desc.json
+  TEST_DESC_PATH: data/desc_test.json
+  TAG_FILE: data/tag_list.txt
+  TAG_COUNT_INFO: result/tag_count_info.csv
+  CATEGORY_ID_COUNT_INFO: result/category_id_count_info.csv
+  TAG_SIZE: 10000
+  CATEGORY_SIZE: 328
+  POINTWISE:
+    DATA_PATH:
+      - data/pointwise/pretrain_0.tfrecords
+      - data/pointwise/pretrain_1.tfrecords
+      - data/pointwise/pretrain_2.tfrecords
+      - data/pointwise/pretrain_3.tfrecords
+      - data/pointwise/pretrain_4.tfrecords
+      - data/pointwise/pretrain_5.tfrecords
+      - data/pointwise/pretrain_6.tfrecords
+      - data/pointwise/pretrain_7.tfrecords
+      - data/pointwise/pretrain_8.tfrecords
+      - data/pointwise/pretrain_9.tfrecords
+      - data/pointwise/pretrain_10.tfrecords
+      - data/pointwise/pretrain_11.tfrecords
+      - data/pointwise/pretrain_12.tfrecords
+      - data/pointwise/pretrain_13.tfrecords
+      - data/pointwise/pretrain_14.tfrecords
+      - data/pointwise/pretrain_15.tfrecords
+      - data/pointwise/pretrain_16.tfrecords
+      - data/pointwise/pretrain_17.tfrecords
+      - data/pointwise/pretrain_18.tfrecords
+      - data/pointwise/pretrain_19.tfrecords
+    INFO_PATH: result/pointwise_info.csv
+  PAIRWISE:
+    DATA_PATH:
+      - data/pairwise/pairwise.tfrecords
+    LABEL_FILE: data/pairwise/label.tsv
+    TRAIN_PATH: result/pairwise_finetune_train.csv
+    VAL_PATH: result/pairwise_finetune_val.csv
+    INFO_PATH: result/pairwise_info.csv
+  TEST_A:
+    DATA_PATH:
+      - data/test_a/test_a.tfrecords
+    INFO_PATH: result/test_a_info.csv
+  TEST_B:
+    DATA_PATH:
+      - data/test_b/test_b.tfrecords
+    INFO_PATH: result/test_b_info.csv
+
+TRAINING:
+  EPOCHS: 30
+  LEARNING_RATE: 0.0005
+  BATCH_SIZE: 128
+  EAVL_BATCH_SIZE: 512
+  REPORT_STEPS: 100
+  SAVE_STEPS: 2000

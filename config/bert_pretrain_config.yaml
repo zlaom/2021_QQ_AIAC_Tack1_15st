@@ -1,0 +1,69 @@
+MODEL:
+  NAME: SINGLE_BERT_PRETRAIN
+  MAC_BERT:
+    NAME: MAC_BERT
+    MODEL_PATH: data/chinese_macbert_base
+    TRUNCATION: true
+    PADDING: max_length
+    MAX_LENGTH: 128
+    LEARNING_RATE: 0.00001
+  SINGLE_BERT_CLASS:
+    NAME: SINGLE_BERT_CLASS
+    INPUT_SIZE: 768
+    NUM_CLASSES: 10000
+    LEARNING_RATE: 0.00005
+
+DATASET:
+  DESC_PATH: data/desc.json
+  TEST_DESC_PATH: data/desc_test.json
+  TAG_FILE: data/tag_list.txt
+  TAG_COUNT_INFO: result/tag_count_info.csv
+  CATEGORY_ID_COUNT_INFO: result/category_id_count_info.csv
+  TAG_SIZE: 10000
+  CATEGORY_SIZE: 328
+  POINTWISE:
+    DATA_PATH:
+      - data/pointwise/pretrain_0.tfrecords
+      - data/pointwise/pretrain_1.tfrecords
+      - data/pointwise/pretrain_2.tfrecords
+      - data/pointwise/pretrain_3.tfrecords
+      - data/pointwise/pretrain_4.tfrecords
+      - data/pointwise/pretrain_5.tfrecords
+      - data/pointwise/pretrain_6.tfrecords
+      - data/pointwise/pretrain_7.tfrecords
+      - data/pointwise/pretrain_8.tfrecords
+      - data/pointwise/pretrain_9.tfrecords
+      - data/pointwise/pretrain_10.tfrecords
+      - data/pointwise/pretrain_11.tfrecords
+      - data/pointwise/pretrain_12.tfrecords
+      - data/pointwise/pretrain_13.tfrecords
+      - data/pointwise/pretrain_14.tfrecords
+      - data/pointwise/pretrain_15.tfrecords
+      - data/pointwise/pretrain_16.tfrecords
+      - data/pointwise/pretrain_17.tfrecords
+      - data/pointwise/pretrain_18.tfrecords
+      - data/pointwise/pretrain_19.tfrecords
+    INFO_PATH: result/pointwise_info.csv
+  PAIRWISE:
+    DATA_PATH:
+      - data/pairwise/pairwise.tfrecords
+    LABEL_FILE: data/pairwise/label.tsv
+    TRAIN_PATH: result/pairwise_finetune_train.csv
+    VAL_PATH: result/pairwise_finetune_val.csv
+    INFO_PATH: result/pairwise_info.csv
+  TEST_A:
+    DATA_PATH:
+      - data/test_a/test_a.tfrecords
+    INFO_PATH: result/test_a_info.csv
+  TEST_B:
+    DATA_PATH:
+      - data/test_b/test_b.tfrecords
+    INFO_PATH: result/test_b_info.csv
+
+TRAINING:
+  EPOCHS: 30
+  LEARNING_RATE: 0.00001
+  BATCH_SIZE: 128
+  EAVL_BATCH_SIZE: 512
+  REPORT_STEPS: 100
+  SAVE_STEPS: 2000

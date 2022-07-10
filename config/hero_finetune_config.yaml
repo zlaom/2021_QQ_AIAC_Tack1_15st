@@ -1,0 +1,72 @@
+DATASET:
+  DESC_PATH: data/desc.json
+  TAG_FILE: data/tag_list.txt
+  TAG_COUNT_INFO: result/tag_count_info.csv
+  CATEGORY_ID_COUNT_INFO: result/category_id_count_info.csv
+  TAG_SIZE: 10000
+  CATEGORY_SIZE: 328
+  POINTWISE:
+    DATA_PATH:
+      - data/pointwise/pretrain_0.tfrecords
+      - data/pointwise/pretrain_1.tfrecords
+      - data/pointwise/pretrain_2.tfrecords
+      - data/pointwise/pretrain_3.tfrecords
+      - data/pointwise/pretrain_4.tfrecords
+      - data/pointwise/pretrain_5.tfrecords
+      - data/pointwise/pretrain_6.tfrecords
+      - data/pointwise/pretrain_7.tfrecords
+      - data/pointwise/pretrain_8.tfrecords
+      - data/pointwise/pretrain_9.tfrecords
+      - data/pointwise/pretrain_10.tfrecords
+      - data/pointwise/pretrain_11.tfrecords
+      - data/pointwise/pretrain_12.tfrecords
+      - data/pointwise/pretrain_13.tfrecords
+      - data/pointwise/pretrain_14.tfrecords
+      - data/pointwise/pretrain_15.tfrecords
+      - data/pointwise/pretrain_16.tfrecords
+      - data/pointwise/pretrain_17.tfrecords
+      - data/pointwise/pretrain_18.tfrecords
+      - data/pointwise/pretrain_19.tfrecords
+    INFO_PATH: result/pointwise_info.csv
+  PAIRWISE:
+    DATA_PATH:
+      - data/pairwise/pairwise.tfrecords
+    LABEL_FILE: data/pairwise/label.tsv
+    TRAIN_PATH: result/pairwise_finetune_train.csv
+    VAL_PATH: result/pairwise_finetune_val.csv
+    INFO_PATH: result/pairwise_info.csv
+    K_FOLD: result/random_k_fold.csv
+  TEST_A:
+    DATA_PATH:
+      - data/test_a/test_a.tfrecords
+    INFO_PATH: result/test_a_info.csv
+
+TRAINING:
+  DECAY_TYPE: cosine
+  WARMUP_STEPS: 1000
+  EPOCHS: 30
+  LEARNING_RATE: 0.0005
+  BATCH_SIZE: 128
+  REPORT_STEPS: 100
+  SAVE_STEPS: 2000
+
+FINETUNE:
+  NAME: FINAL_HERO12_FINTUNE_SCORE
+  TOKENIZER_PATH: data/chinese_macbert_base
+  HeroConcatSeFustionModel:
+    TRS_INPUT: 1536
+    BERT_INPUT: 768
+    OUPUT_SIZE: 256
+  LEARNING_RATE: 0.00005
+  WEIGHT_DECAY: 0
+  EPOCHS: 30
+  REPORT_STEPS: 25
+  BATCH_SIZE: 128
+  TAG_FRAME_TRS_CONV: checkpoints/pretrain/NEW_TRS_BERT_DROP_SE_MSE_epoch4_0.7066_0.4182_0.6714.bin
+  TAG_TITLE_ASR_BERT:  checkpoints/pretrain/SINGEL_MAC_BERT_TITLE_ASR_BASE_epoch18_0.6888_0.3757_0.5526.bin
+  HERO: checkpoints/pretrain/tag_single_spearm_epoch25_0.7197
+
+TESTING:
+  BATCH_SIZE: 512
+  SAVE_PATH: result/result.json
+  CHECKPOINT: checkpoints/finetune/NEW_CONV_TRS_BERT_SE_epoch11_0.7880.bin

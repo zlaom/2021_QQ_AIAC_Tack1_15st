@@ -1,0 +1,220 @@
+MODEL:
+  NAME: NEW_TAG_CAT_TRS_BERT_DROP0_SE_MSE_TRUE_2 #TAG_FT_SINGEL_MY_TRS_12_CONV_POSE  #TRS_BERT_SE_ORIGIN # CATEGORY_FT_SINGEL_MY_TRS_12_POS   #CATEGORY_SINGEL_MAC_BERT_TITLE_ASR_BASE # SINGEL_MAC_BERT_LARGE  #FT_SINGEL_MY_TRS_12_NO_POSE_AND # SINGEL_MAC_BERT_LARGE #SINGEL_MAC_BERT_TITLE_ASR_BASE #FT_SINGEL_MY_TRS_12_POSE_L_AND   #FT_SINGEL_MY_TRS_12_POSE_CONV_AND 
+  MAC_BERT:
+    NAME: MAC_BERT
+    MODEL_PATH: data/chinese_macbert_base
+    TRUNCATION: true
+    PADDING: max_length
+    MAX_LENGTH: 128
+    LEARNING_RATE: 0.000005
+  NEXTVLAD:
+    NAME: NEXTVLAD
+    FEATURE_SIZE: 1536
+    OUTPUT_SIZE: 1536
+    EXPANSION_SIZE: 2
+    CLUSTER_SIZE: 64
+    NUM_GROUPS: 8
+    DROPOUT_PROB: 0
+    LEARNING_RATE: 0.0005
+  FRAME_FEATURE_TRS:
+    NAME: FRAME_FEATURE_TRS
+    MAX_FRAME: 32
+    FRAME_DIM: 1536
+    DIM: 1536
+    DEPTH: 12
+    HEADS: 12
+    DIM_HEAD: 128
+    MLP_DIM: 3072
+    DROPOUT: 0.1
+    EMB_DROPOUT: 0.0
+    LEARNING_RATE: 0.0001
+  FRAME_FEATURE_TRS_CLS:
+    NAME: FRAME_FEATURE_TRS_CLS
+    INPUT_SIZE: 1536
+    INTER_SIZE: 3072
+    NUM_CLASSES: 10000
+    CATE_CLASSES: 327
+    LEARNING_RATE: 0.0001
+  TRANSFORMER:
+    NAME: TRANSFORMER
+    DIM: 1536
+    DEPTH: 6
+    HEADS: 12
+    DIM_HEAD: 128
+    MLP_DIM: 3072
+    DROPOUT: 0.1
+    LEARNING_RATE: 0.0005
+  DIM_REDUCE:
+    NAME: DIM_REDUCE
+    INPUT_SIZE: 1536
+    OUTPUT_SIZE: 256
+    DROPOUT: 0.
+    LEARNING_RATE: 0.0005
+  BERT_CLASS:
+    NAME: BERT_CLASS
+    INPUT_SIZE: 768
+    HIDDEN_SIZE: 256
+    NUM_CLASSES: 10000
+    LEARNING_RATE: 0.0005
+  SINGLE_BERT_CLASS:
+    NAME: SINGLE_BERT_CLASS
+    INPUT_SIZE: 768
+    NUM_CLASSES: 327
+    LEARNING_RATE: 0.0001
+  SINGLE_NEXTVLAD_CLASS:
+    NAME: SINGLE_NEXTVLAD_CLASS
+    INPUT_SIZE: 1024
+    NUM_CLASSES: 10000
+    LEARNING_RATE: 0.00005
+  NeXtVLAD_CLASS:
+    NAME: NeXtVLAD_CLASS
+    INPUT_SIZE: 1024
+    HIDDEN_SIZE: 256
+    NUM_CLASSES: 10000
+    LEARNING_RATE: 0.0005
+  CONCAT_CLASS:
+    NAME: CONCAT_CLASS
+    INPUT_SIZE: 1792
+    HIDDEN_SIZE: 256
+    NUM_CLASSES: 10000
+    LEARNING_RATE: 0.0005
+  TRS_CONCAT_CLASS:
+    NAME: TRS_CONCAT_CLASS
+    INPUT_SIZE: 2304
+    HIDDEN_SIZE: 256
+    NUM_CLASSES: 10000
+    LEARNING_RATE: 0.0005
+  CONCAT_SE_CLASS:
+    NAME: CONCAT_SE_CLASS
+    VIDEO_INPUT_SIZE: 1024
+    TITLE_INPUT_SIZE: 768
+    HIDDEN_SIZE: 256
+    TITLE_DROPOUT: 0.5
+    VIDEO_DROPOUT: 0.5
+    FUSION_DROPOUT: 0.5
+    NUM_CLASSES: 10000
+    LEARNING_RATE: 0.0005
+  ATTENTION_CLASS:
+    NAME: ATTENTION_CLASS
+    TITLE_INPUT_SIZE: 768
+    ALIGN_SIZE: 1024
+    HIDDEN_SIZE: 1024
+    REDUCE: 2
+    NUM_CLASSES: 5000
+    LEARNING_RATE: 0.0005
+  TRS_CONCAT_SE_CLASS:
+    NAME: TRS_CONCAT_SE_CLASS
+    VIDEO_INPUT_SIZE: 1536
+    TITLE_INPUT_SIZE: 768
+    HIDDEN_SIZE: 256
+    NUM_CLASSES: 10000
+    LEARNING_RATE: 0.0005
+  MySeFustionModel:
+    NAME: MySeFustionModel
+    TRS_INPUT: 1536
+    BERT_INPUT: 768
+    OUPUT_SIZE: 256
+    LEARNING_RATE: 0.0001
+    DROPOUT: 0.1
+  MyFourFustionModel:
+    NAME: MyFourFustionModel
+    TRS_INPUT: 1536
+    BERT_INPUT: 768
+    OUPUT_SIZE: 256
+    LEARNING_RATE: 0.0001
+    DROPOUT: 0.
+  MySeFourFustionTransModel:
+    NAME: MySeFourFustionTransModel
+    TRS_INPUT: 1536
+    BERT_INPUT: 768
+    OUPUT_SIZE: 256
+    LEARNING_RATE: 0.0001
+    DROPOUT: 0.
+    Transformer_MUL:
+      NAME: Transformer_MUL
+      DIM: 256
+      DEPTH: 2
+      HEADS: 4
+      DIM_HEAD: 64
+      MLP_DIM: 512
+      DROPOUT: 0.
+      LEARNING_RATE: 0.0005
+
+
+
+
+DATASET:
+  ITERATION: 100000
+  PROTO:
+    PROTO_DICT: result/protonet/tag_division_5000.json
+    ITERATION: 1000
+    BATCH_SIZE: 128
+    SAMPLE_CLASS: 20
+    SUPPORT_SET: 5 
+    QUERY_SET: 5
+    SAVE_STEPS: 500
+  DESC_PATH: data/desc.json
+  TAG_FILE: data/tag_list.txt
+  TAG_COUNT_INFO: result/tag_count_info.csv
+  CATEGORY_ID_COUNT_INFO: result/category_id_count_info.csv
+  TAG_SIZE: 10000
+  CATEGORY_SIZE: 328
+  POINTWISE:
+    DATA_PATH:
+      - data/pointwise/pretrain_0.tfrecords
+      - data/pointwise/pretrain_1.tfrecords
+      - data/pointwise/pretrain_2.tfrecords
+      - data/pointwise/pretrain_3.tfrecords
+      - data/pointwise/pretrain_4.tfrecords
+      - data/pointwise/pretrain_5.tfrecords
+      - data/pointwise/pretrain_6.tfrecords
+      - data/pointwise/pretrain_7.tfrecords
+      - data/pointwise/pretrain_8.tfrecords
+      - data/pointwise/pretrain_9.tfrecords
+      - data/pointwise/pretrain_10.tfrecords
+      - data/pointwise/pretrain_11.tfrecords
+      - data/pointwise/pretrain_12.tfrecords
+      - data/pointwise/pretrain_13.tfrecords
+      - data/pointwise/pretrain_14.tfrecords
+      - data/pointwise/pretrain_15.tfrecords
+      - data/pointwise/pretrain_16.tfrecords
+      - data/pointwise/pretrain_17.tfrecords
+      - data/pointwise/pretrain_18.tfrecords
+      - data/pointwise/pretrain_19.tfrecords
+    INFO_PATH: result/pointwise_info.csv
+  PAIRWISE:
+    DATA_PATH:
+      - data/pairwise/pairwise.tfrecords
+    LABEL_FILE: data/pairwise/label.tsv
+    TRAIN_PATH: result/pairwise_finetune_train.csv
+    VAL_PATH: result/pairwise_finetune_val.csv
+    INFO_PATH: result/pairwise_info.csv
+  TEST_A:
+    DATA_PATH:
+      - data/test_a/test_a.tfrecords
+    INFO_PATH: result/test_a_info.csv
+
+TRAINING:
+  DECAY_TYPE: cosine
+  WARMUP_STEPS: 1000
+  EPOCHS: 200
+  LEARNING_RATE: 0.0001
+  BATCH_SIZE: 128
+  REPORT_STEPS: 25
+  SAVE_STEPS: 1000
+
+FINETUNE:
+  LEARNING_RATE: 0.0005
+  WEIGHT_DECAY: 0
+  EPOCHS: 40
+  BATCH_SIZE: 128
+  TAG_FRAME_TRS: checkpoints/NEW_FT_SINGEL_MY_TRS_12_POS_epoch6_0.7424_0.3807_0.6691.bin
+  TAG_TITLE_ASR_BERT: checkpoints/SINGEL_MAC_BERT_TITLE_ASR_BASE_epoch18_0.6888_0.3757_0.5526.bin
+  CAT_FRAME_TRS: checkpoints/NEW_CATEGORY_FT_SINGEL_MY_TRS_12_POS_epoch4_0.7655_0.5554_0.5971.bin
+  CAT_TITLE_ASR_BERT: checkpoints/CATEGORY_SINGEL_MAC_BERT_TITLE_ASR_BASE_epoch10_0.7294_0.4964_0.4430.bin
+  CHECKPOINT: checkpoints/CONCAT_W_ONCE_DROP_10000_epoch5_0.7255_0.4953_0.6966.bin
+
+TESTING:
+  BATCH_SIZE: 256
+  SAVE_PATH: result/result.json
+  CHECKPOINT: checkpoints/finetune/NEW_TAG_CAT_TRS_BERT_DROP0.1_SE_MSE_epoch22_0.7859.bin
