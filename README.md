@@ -1,6 +1,6 @@
 # 2021_QQ_AIAC_Tack1_15st
 
-2021QQ浏览器AI算法大赛 多模态视频相似度任务 第15名方案
+2021QQ浏览器AI算法大赛 赛道一 多模态视频相似度任务 第15名方案
 
 [QQ浏览器AI算法大赛官网](https://algo.browser.qq.com/)
 
