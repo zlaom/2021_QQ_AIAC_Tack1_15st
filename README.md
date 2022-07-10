@@ -1,5 +1,6 @@
 # AIAC2021赛道一 Rank 15
 
+就不提交就是玩队代码
 [https://algo.browser.qq.com/](https://algo.browser.qq.com/)
 
 ## 目录说明
